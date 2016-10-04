@@ -7,18 +7,95 @@
     <meta name="author" content="Gustavo Teixeira">
     <title>Testes de velocidade MySQL e MongoDB</title>
     <style>
+
+      body{
+        font-family: sans-serif;
+        font-size: 10px;
+        background-color: #17B890;
+        color: #ffffff;
+        padding-left: 2%;
+      }
+      h1{
+        font-size: 2.2em;
+      }
+      h2{
+        font-size: 2.0em;
+      }
+      h3{
+        font-size: 1.8em;
+      }
+      table{
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 5px;
+      }
+      table, td, th {
+        border: 1px solid white;
+        vertical-align: middle;
+      }
       th{
+        font-size: 1.0em;
         text-align: center;
+        border:
+      }
+      tbody tr:nth-child(even){
+        background-color: #5E807F;
+        color: #ffffff;
+      }
+      tbody tr:hover{
+        background-color: #DEE5E5;
+        color: #000000;
+      }
+      p{
+        font-size: 1.6em;
+        padding-left: 1%;
       }
       td{
         text-align: left;
       }
+      .onde_utilizar{
+        padding-left: 1%;
+      }
+      #media td{
+        text-align: center;
+      }
+      #diferenca td{
+        text-align: center;
+      }
+      a{
+        color: #082D0F;
+      }
+    footer{
+      text-align: center;
+    }
     </style>
   </head>
   <body>
 
-    <table border="1">
-      <caption>Inserir dados</caption>
+    <section>
+
+    <h1 >Teste de performance entre MySQL e MongoDB</h1>
+
+    <h2>Recursos utilizados</h2>
+      <p>Notebook
+        <ul>
+          <li>8GB RAM</li>
+          <li>Processador i3 1.8GHZ</li>
+          <li>HD 5400rpm</li>
+          <li>Ubuntu 16.04 Linux 64bits</li>
+          <li>MySQL 5.7.15</li>
+          <li>MongoDB 2.6.10</li>
+        </ul>
+
+      </p>
+    <h2>Metodologia</h2>
+        <p> Para realizar os testes foi utilizada a linguagem PHP com o <a href="http://php.net/manual/pt_BR/book.mysqli.php">driver mysqli</a> e <a href="http://php.net/manual/pt_BR/mongodb.tutorial.library.php">mongodb client</a>.<br>
+          Sendo utilizado loops com for para repetir o envio para gravar os dados. Foi utilizado somente um equipamento para o teste e o banco de dados local<br>
+        </p>
+
+
+    <h2>Teste de inserção em segundos</h2>
+    <table id="resultados">
       <thead>
         <tr>
           <th rowspan="2">Tentativas</th>
@@ -34,16 +111,11 @@
           <th>MongoDB</th>
         </tr>
         <tr>
-          <th>500</th>
-          <th>500</th>
-          <th>1000</th>
-          <th>1000</th>
-          <th>2000</th>
-          <th>2000</th>
-          <th>5000</th>
-          <th>5000</th>
-          <th>10000</th>
-          <th>10000</th>
+          <th colspan="2">500</th>
+          <th colspan="2">1000</th>
+          <th colspan="2">2000</th>
+          <th colspan="2">5000</th>
+          <th colspan="2">10000</th>
         </tr>
       </thead>
       <tbody>
@@ -105,65 +177,44 @@
           <td>3.5162038803101</td>
 
         </tr>
-        <tr>
+        <tr id="media">
           <td>Média</td>
+          <td>29.3193546136</td>
+          <td>0,394622008</td>
+          <td>64,1515524387</td>
+          <td>0,4859817028</td>
+          <td>124,2420210044</td>
+          <td>0,6920727094</td>
+          <td>371,1659019788</td>
+          <td>2,0548480352</td>
+          <td>989,0922429562</td>
+          <td>3,9155322711</td>
+        </tr>
+        <tr id="diferenca">
+          <td>Diferença</td>
+          <td colspan="2">29,7139766216</td>
+          <td colspan="2">32,3187670708</td>
+          <td colspan="2">62,4670468569</td>
+          <td colspan="2">186,610375007</td>
+          <td colspan="2">496,5038876136</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
-
-    <table border="1">
-      <caption>Consultar dados</caption>
-      <thead>
-        <tr>
-          <th rowspan="2">Tentativas</th>
-          <th>MySQL</th>
-          <th>MongoDB</th>
-          <th>MySQL</th>
-          <th>MongoDB</th>
-          <th>MySQL</th>
-          <th>MongoDB</th>
-          <th>MySQL</th>
-          <th>MongoDB</th>
-          <th>MySQL</th>
-          <th>MongoDB</th>
-        </tr>
-        <tr>
-          <th>500</th>
-          <th>500</th>
-          <th>1000</th>
-          <th>1000</th>
-          <th>2000</th>
-          <th>2000</th>
-          <th>5000</th>
-          <th>5000</th>
-          <th>10000</th>
-          <th>10000</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1ª</td>
-
-
-        </tr>
-        <tr>
-          <td>2ª</td>
-
-        </tr>
-        <tr>
-          <td>3ª</td>
-
-        </tr>
-        <tr>
-          <td>Média</td>
-        </tr>
-
-      </tbody>
-    </table>
-    <p>
-      Registros ao final. MongoDB: 55500
-    </p>
-
+    <h2>Onde utilizar</h2>
+    <div class="onde_utilizar">
+    <h3>MySQL</h3>
+        <p>A utilização do Mysql é recomendada para ambientes onde a integridade dos dados é de extrema importância.</p>
+    <h3>MongoDB</h3>
+      <p>Já o mongo é recomendado o seu uso em ambientes onde há um grande volume de informações a serem gravadas, sendo estas de menor importância. Pois consegue gravar os dados com velocidade muito maior.</p>
+    </div>
+    <h2>Conclusão</h2>
+      <p>
+        Nos testes todos os dados inseridos foram gravados e estavam presentes nas bases na revisão.
+         O Mongodb se demonstrou muito mais rápido em todos os teste, sendo que a sua diferença de velocidade aumentava de acordo com o maior número de registros
+      </p>
+    </section>
+    <footer>Realizado por Gus</footer>
   </body>
 </html>
 
@@ -172,58 +223,9 @@
 
 
 
-<!-- mysql 500 registros inserção
-Tempo inicial = 0.61672900 1473980310
-Tempo final = 0.79153400 1473980336
-
-mysql 500 registros consulta
-Tempo inicial = 0.08850000 1473980375
-Tempo final = 0.09106900 1473980375
-
-mysql 2000 registros inserção
-Tempo inicial = 0.16750000 1473980494
-Tempo final = 0.57461500 1473980614
-
-mysql 2500 registros consulta
-Tempo inicial = 0.94866700 1473980651
-Tempo final = 0.95492500 1473980651
-
-mysql 10000 registros inserir
-Tempo inicial = 0.34697800 1473981053
-Tempo final = 0.50100300 1473981996
-
-mysql 12500 registros consulta
-Tempo inicial = 0.60485000 1473982061
-Tempo final = 0.62581300 1473982061
-
-mongodb 1000reg inserir
-0.23267698287964
-0.23267698287964
-0.23639392852783
-0.20470309257507
-10.000
-2.1622459888458
-2.1485230922699
-2.0925691127777
-1.9707169532776
+<!--
 
 Criar artigo
 Resumo do trabalho
 
-Introdução
-Recursos utilizados
-  Notebook
-  -8GB RM
-  -Processador i3 1.8GHZ
-  -HD 5400rpm
-  -Antergos Linux 64bits
-Metodologia
-  Foi utilizado scripts PHP
-Analise mysql X mongo resultados
-  Mongodb se demonstrou muito mais rápido em todos os testes tanto de inserção quanto de consulta.
-onde usar mysql
-  A utilização do Mysql é recomendada para ambientes onde a integridade dos dados é de extrema importância.
-onde usar mongodb
-  Já o mongo é recomendado o seu uso em ambientes onde há um grande volume de informações a serem gravadas,
-  sendo estas de menor importância.
-Conclusão -->
+-->

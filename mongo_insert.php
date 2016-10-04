@@ -12,7 +12,7 @@ $data = date("Y-m-d");
 
 $collection = $client->db_performance->tb_performance;
 $tempo_inicial = microtime(true);
-for ($i=0; $i < 10000; $i++) {
+for ($i=0; $i < 23000; $i++) {
   $result = $collection->insertOne( ['servidor' => $servidor,
  'porta' => $porta,
   'navegacao' => $navegacao,

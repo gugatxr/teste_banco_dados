@@ -1,40 +1,39 @@
 <?php
 
-$mysqli = new mysqli( 'localhost', "root", "", "tb_performance");
+$mysqli = new mysqli( 'localhost', "root", "1234", "db_performance");
+
+$query = "SELECT * FROM tb_performance limit 10000";
+
+echo '
+  <table>
+    <thead>
+      <th>Servidor</th>
+      <th>Porta</th>
+      <th>Navegacao</th>
+      <th>Página</th>
+      <th>Data</th>
+    </thead>
+    <tbody>';
+$time_inicial = microtime(true);
+
+$result = $mysqli->query($query);
+
+    while($dados = $result->fetch_assoc()) {
+      echo "<tr>
+              <td>".$dados['servidor']."</td>
+              <td>".$dados['porta']."</td>
+              <td>".$dados['navegacao']."</td>
+              <td>".$dados['pagina']."</td>
+              <td>".$dados['data']."</td>";
+    }
 
 
-$servidor = $_SERVER["SERVER_NAME"];
-$porta1 = $_SERVER;
-$porta = $_SERVER['SERVER_PORT'];
-$navegacao = $_SERVER['HTTP_USER_AGENT'];
-$pagina = $_SERVER['REQUEST_URI'];
-$data = date("Y-m-d");
-
-$query = "SELECT * FROM tb_performance";
+echo '</tbody>
+  </table>';
 
 $time_inicial = microtime(true);
 
-  $resultado = $mysqli->query($query);
+$resultado = $mysqli->query($query);
 $time_final = microtime(true);
-var_dump($resultado);
 
-// echo "Tempo inicial = ".$tempo_inicial;
-// echo "Tempo final = ".$tempo_final.'</br>';
-
-echo $time_final - $time_inicial;
-
-
-// $time_inicial = "0.61672900 1473980310";
-// $time_inicial = explode(" ", $time_inicial);
-// $time_final = "0.79153400 1473980336";
-// $time_final = explode(" ", $time_final);
-// echo $tempo_final[0] - $time_inicial[0]  ;
-
-// list($usec_inicial, $sec_inicial) = explode(' ', $time_inicial);
-// list($usec_final, $sec_final) = explode(' ', $time_final);
-//
-// $usec = $usec_final - $usec_inicial;
-// $sec = $sec_final - $sec_inicial;
-//
-// $usec = str_replace("0.", ".", $usec);
-// print date('H:i:s', $sec) . $usec;
+echo 'Tempo necessário: '. ($time_final - $time_inicial);

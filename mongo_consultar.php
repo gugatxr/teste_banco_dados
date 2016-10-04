@@ -1,14 +1,7 @@
 <?php
-// $m = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-// $db = $m->selectDB("example");
 require 'vendor/autoload.php'; // include Composer goodies
 
 $client = new MongoDB\Client("mongodb://localhost:27017");
-$servidor = $_SERVER["SERVER_NAME"];
-$porta = $_SERVER['SERVER_PORT'];
-$navegacao = $_SERVER['HTTP_USER_AGENT'];
-$pagina = $_SERVER['REQUEST_URI'];
-$data = date("Y-m-d");
 
 $collection = $client->db_performance->tb_performance;
 // echo $collection->count();
@@ -26,7 +19,6 @@ $collection = $client->db_performance->tb_performance;
     <?php
     $time_inicial = microtime(true);
     $result = $collection->find();
-    $result->limit(12);
     foreach ($result as $key => $value) {
       echo "<tr>
               <td>".$value['servidor']."</td>
@@ -39,7 +31,5 @@ $collection = $client->db_performance->tb_performance;
     ?>
 
   </tbody>
-
-
 </table>
-echo $time_final - $time_inicial;
+<?php echo 'resultado: '.($time_final - $time_inicial); ?>
